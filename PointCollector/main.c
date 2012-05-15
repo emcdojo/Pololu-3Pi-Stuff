@@ -124,17 +124,17 @@ void calibrate(void)
 void get_calibrated_values(unsigned int position, unsigned int * left, unsigned int * right) 
 {
 	double dposition = position;
-    if (dposition > 2400) 
+	if (dposition > 2400) 
 	{
-        dposition = 4000 - dposition;
-        *right = (dposition / 50) * 3; // set it to a range of 0-127
-        *left = 120; 
-    }
-    else if (dposition < 1600)
+		dposition = 4000 - dposition;
+        	*right = (dposition / 50) * 3; // set it to a range of 0-127
+        	*left = 120; 
+    	}
+    	else if (dposition < 1600)
 	{
-        *right = 120;
-        *left = (dposition / 50) * 3; // set it to a range of 0-127
-    }
+        	*right = 120;
+        	*left = (dposition / 50) * 3; // set it to a range of 0-127
+    	}
 	else 
 	{
 		*right = 120;
@@ -157,13 +157,15 @@ int stop_detected(unsigned int * sensors)
 }
 
 
-void make_stop(void) {
+void make_stop(void) 
+{
 	int i;
 	int total_delay = 2000;
 	set_motors(0, 0);
 	clear();
 	print("gotcha");
-	for (i = 0; (i * 500) < total_delay; i++) {
+	for (i = 0; (i * 500) < total_delay; i++) 
+	{
 		green_led(i % 2);
 		red_led(!(i % 2));
 		play_note((i % 2) ? C(5): E(5), 500, 20);
@@ -173,15 +175,18 @@ void make_stop(void) {
 	green_led(0);
 }
 
-void find_next_stop(void) {
+void find_next_stop(void) 
+{
 	unsigned int sensors[5];
 	unsigned int position;
 	unsigned int left, right;
-	while (1) {
+	while (1) 
+	{
 		position = read_line(sensors, IR_EMITTERS_ON);
 		if (stop_detected(sensors)) {
 			set_motors(60, 60);
-			do {
+			do 
+			{
 				delay_ms(15);
 				read_line(sensors, IR_EMITTERS_ON);			
 			} while(stop_detected(sensors));
@@ -193,12 +198,14 @@ void find_next_stop(void) {
 	}
 }
 
-long start_driving(int points) {
+long start_driving(int points) 
+{
 	unsigned long start_time, end_time;
 	pololu_3pi_init(2000);
 	calibrate();
 	start_time = get_ms();
-	while(points > 0) {
+	while(points > 0) 
+	{
 		find_next_stop();
 		--points;
 		print_left(points);
@@ -207,19 +214,22 @@ long start_driving(int points) {
 	return end_time - start_time;
 }
 
-void show_results(unsigned long res) {
+void show_results(unsigned long res) 
+{
 	clear();
 	print("Done");
 	lcd_goto_xy(0,1);
 	print_long(res / 1000);
 	print_character('.');
 	print_long(res % 1000);
-	while (1) {
+	while (1) 
+	{
 		delay_ms(2000);
 	}
 }
 
-int main() {
+int main() 
+{
 	int points;
 	unsigned long results;
 	points = init();
