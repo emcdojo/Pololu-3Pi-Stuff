@@ -1,13 +1,21 @@
-Pololu-3Pi-Stuff
-----------------
+++ Pololu-3Pi-Stuff ++
+
 
 This folder contains programs I've made for the Pololu 3Pi robot.
 Most of it will probably be just basic stuff, but who knows.
 
-- Setup:
-	As I only have Sparkfun's AVR Pocket Programmer, which doesn't work with Atmel Studio, I work with avrdude
-	
-- Makefile:
-	The makefile for each projects is based on my setup, so you'll probably need to change it if you want to compile the program.
+Setup:
+- As I only have Sparkfun's AVR Pocket Programmer, which doesn't work with Atmel Studio, I work with avrdude.
+- The Pololu-3Pi-Stuff folder is located in libpololu-avr folder, where ever you install it.
+- The makefile for each projects is based on my setup, so you'll probably need to change it if you want to compile the program.
+
+Current programs
+----------------
+
+- Point collector:
+	Line follower that stops in X (1-10) "points". TBD: upload a picture of a sample course
+	Uses: IR sensors, LEDs, LCD, motors, buzzer.
+
+
 	
 
