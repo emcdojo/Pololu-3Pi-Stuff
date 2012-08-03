@@ -1,0 +1,8 @@
+Port mapping for programming the Pololu 3Pi robot.
+
+PD0 - PD7 are controled by two variables:
+-	DDRD 	=> controls whether they are in input or output mode. For example:
+	DDRD = 0xC2; // (11000010b) make PD7, PD6 and PD1 pins output, and PD5-PD2 and PD0 pins input
+
+-	PORTD 	=> Controls the power. For example:
+	PORTD = 0x43; // (01000011b) set output/input state of PD6, PD1 and PD0 to high

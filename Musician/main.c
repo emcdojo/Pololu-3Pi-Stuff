@@ -52,7 +52,6 @@ void initialize()
 	delay_ms(1000);
 	
 	{
-		unsigned int sensors[5]; // an array to hold sensor values
 		int counter;
 		for(counter=0;counter<80;counter++)
 		{
@@ -106,25 +105,79 @@ int simple_player(int index)
 	return 1;
 }
 
+int dummy_function(int index)
+{
+	clear();
+	print("Dummy");
+	delay_ms(2000);
+	return 0;
+}	
+
 typedef int (*prog_func)(int);
 static prog_func prog_funcs[] = 
 {
 	&simple_player,
+	&dummy_function,
+};
+static const char * program_names[] =
+{
+	"Simple",
+	"Dummy",
 };
 #define NUMBER_OF_FUNCS	(sizeof(prog_funcs) / sizeof(prog_funcs[0]))
 
-int choose_program()
+void show_program_menu(int current)
 {
 	clear();
-	while(!button_is_pressed(BUTTON_B))
+	lcd_goto_xy(0,0);
+	print_character(current + '1');
+	lcd_goto_xy(1,0);
+	print_character('.');
+	lcd_goto_xy(2,0);
+	print(program_names[current]);
+	if (current > 0)
 	{
 		lcd_goto_xy(0,1);
-		print("Press B");
-		delay_ms(100);
+		print_character('-');
 	}
-	wait_for_button_release(BUTTON_B);
-	delay_ms(1000);
-	return 0;
+	lcd_goto_xy(3,1);
+	print("Go");
+	if (current < (NUMBER_OF_FUNCS - 1))
+	{
+		lcd_goto_xy(7,1);
+		print_character('+');
+	}
+}
+
+unsigned char pause(void) 
+{
+	unsigned char button;
+	button = wait_for_button_press(BUTTON_A | BUTTON_B | BUTTON_C);
+	wait_for_button_release(button);
+	return button;
+}
+
+int choose_program()
+{
+	int current = 0;
+	while(1) {
+		unsigned char button;
+		show_program_menu(current);
+		button = pause();
+		if (button & BUTTON_A)
+		{
+			if (current > 0)	--current;
+		}
+		else if (button & BUTTON_C)
+		{
+			if (current < (NUMBER_OF_FUNCS - 1)) ++current;
+		}		
+		else if (button & BUTTON_B)
+		{
+			break;
+		}
+	} 
+	return current;
 }
 
 void run_program(unsigned int program)
@@ -147,6 +200,7 @@ int main()
 	while(1)
 	{
 		chosen_program = choose_program();
+		delay_ms(1000);
 		run_program(chosen_program);
 	}
 }
