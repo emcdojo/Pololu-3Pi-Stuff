@@ -24,6 +24,7 @@ clean:
 
 %.hex: %.obj
 	$(OBJ2HEX) -R .eeprom -O ihex $< $@
+	rm -f *.o *.obj 
 
 main.o: main.c
 

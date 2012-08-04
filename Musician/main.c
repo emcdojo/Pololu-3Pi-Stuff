@@ -4,8 +4,20 @@
 
 const char welcome_line1[] PROGMEM = " Pololu";
 const char welcome_line2[] PROGMEM = "3\xf7 Robot";
-const char demo_name_line1[] PROGMEM = "\xf7 Line \xf7"; // change to note
+const char demo_name_line1[] PROGMEM = " Line "; // change to note
 const char demo_name_line2[] PROGMEM = "Musician";
+
+#define NOTE_SYMBOL_ID		1
+const char note_symbol[] PROGMEM = {
+	0b00110,
+	0b00110,
+	0b00101,
+	0b00101,
+	0b01100,
+	0b11100,
+	0b11100,
+	0b01100,
+};
 
 const char welcome[] PROGMEM = ">g32>>c32";
 const char go[] PROGMEM = "L16 cdegreg4";
@@ -19,6 +31,9 @@ void initialize()
 	// corresponds to 2000*0.4 us = 0.8 ms on our 20 MHz processor.
 	pololu_3pi_init(2000);
 	
+	lcd_load_custom_character(note_symbol, NOTE_SYMBOL_ID);
+	clear();
+	
 	// Play welcome music and display a message
 	print_from_program_space(welcome_line1);
 	lcd_goto_xy(0,1);
@@ -27,7 +42,12 @@ void initialize()
 	delay_ms(1000);
 
 	clear();
+	lcd_goto_xy(0,0);
+	print_character(NOTE_SYMBOL_ID);
+	lcd_goto_xy(1,0);
 	print_from_program_space(demo_name_line1);
+	lcd_goto_xy(7,0);
+	print_character(NOTE_SYMBOL_ID);
 	lcd_goto_xy(0,1);
 	print_from_program_space(demo_name_line2);
 	delay_ms(2000);
