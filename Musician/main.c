@@ -20,7 +20,6 @@ const char note_symbol[] PROGMEM = {
 };
 
 const char welcome[] PROGMEM = ">g32>>c32";
-const char go[] PROGMEM = "L16 cdegreg4";
 
 #define DELAY_IN_MS	100
 
