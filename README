@@ -1,13 +1,21 @@
-++ Pololu-3Pi-Stuff ++
+Pololu-3Pi-Stuff
+================
 
-
-This folder contains programs I've made for the Pololu 3Pi robot.
+This folder contains some programs I've made for the Pololu 3Pi robot.
 Most of it will probably be just basic stuff, but who knows.
 
-Setup:
-- As I only have Sparkfun's AVR Pocket Programmer, which doesn't work with Atmel Studio, I work with avrdude.
-- The Pololu-3Pi-Stuff folder is located in libpololu-avr folder, where ever you install it.
-- The makefile for each projects is based on my setup, so you'll probably need to change it if you want to compile the program.
+Setup
+-----
+-   Since I only have Sparkfun's AVR Pocket Programmer, 
+    which doesn't work with Atmel Studio, I work with avrdude.
+-   The Pololu-3Pi-Stuff folder is located in libpololu-avr folder, 
+    whereever you install it.
+-   The makefiles are written for unix system, if you want to use 
+    them on windows, you need to replace the path separator from / to \.
+-   To install the AVR programming and pololu environment on linux, 
+    you may use the script linux-env-setup.sh. ("sudo sh linux-env-setup.sh")
+    It was written and tested only on ubuntu 12.04 and updated for 12-25-2012, 
+    so when a new version of libpololu-avr will be out, it should be updated.
 
 Current programs
 ----------------
@@ -15,7 +23,12 @@ Current programs
 - Point collector:
 	Line follower that stops in X (1-10) "points". TBD: upload a picture of a sample course
 	Uses: IR sensors, LEDs, LCD, motors, buzzer.
-
+- Maze solver:
+    A program to solve mazes, based on pololus program
+- Musician:
+    Not ready, play music according to the line it is over
+- Barcode reader:
+    One day it will read an EAN 13 barcode, right now it just gets a number and converts it to the barcode version.
 
 	
 
